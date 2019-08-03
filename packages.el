@@ -31,9 +31,49 @@
 
 (defconst jupyter-packages
   '(
-    company
+    ;; company
+    (ox-ipynb :location (recipe
+                         :fetcher github
+                         :repo "jkitchin/ox-ipynb"))
     jupyter
-    ))
+    )
+  )
+
+(defun jupyter/init-ox-ipynb ()
+  (use-package ox-ipynb)
+  )
+
+(defun jupyter/post-init-ox-ipynb ()
+  (add-to-list 'ox-ipynb-kernelspecs
+               '(jupyter-python . (kernelspec . ((display_name . "Python 3")
+                                                 (language . "python")
+                                                 (name . "python3"))))
+               )
+  (add-to-list 'ox-ipynb-kernelspecs
+               '(jupyter-julia . (kernelspec . ((display_name . "Julia 0.6.0")
+                                                (language . "julia")
+                                                (name . "julia-0.6"))))
+               )
+
+  (add-to-list 'ox-ipynb-language-infos
+               '(jupyter-python . (language_info . ((codemirror_mode . ((name . ipython)
+                                                                        (version . 3)))
+                                                    (file_extension . ".py")
+                                                    (mimetype . "text/x-python")
+                                                    (name . "python")
+                                                    (nbconvert_exporter . "python")
+                                                    (pygments_lexer . "ipython3")
+                                                    (version . "3.5.2"))))
+               )
+  (add-to-list 'ox-ipynb-language-infos
+               '(jupyter-julia . (language_info . ((codemirror_mode . "julia")
+                                                   (file_extension . ".jl")
+                                                   (mimetype . "text/x-julia")
+                                                   (name . "julia")
+                                                   (pygments_lexer . "julia")
+                                                   (version . "0.6.0"))))
+               )
+  )
 
 (defun jupyter/init-jupyter ()
   (if (executable-find "jupyter")
@@ -73,7 +113,7 @@
             "sb" 'jupyter-repl-pop-to-buffer)))
     (message "jupyter was not found in your path, jupyter is not loaded")))
 
-(defun jupyter/post-init-company ()
-  (spacemacs|add-company-backends :backends company-capf :modes jupyter-repl-mode))
+;; (defun jupyter/post-init-company ()
+;;   (spacemacs|add-company-backends :backends company-capf :modes jupyter-repl-mode))
 
 ;;; packages.el ends here
