@@ -1,63 +1,59 @@
 #+TITLE: jupyter layer
 
 * Table of Contents                                        :TOC_1_gh:noexport:
-- [[#todos][TODOs]]
 - [[#description][Description]]
 - [[#install][Install]]
 - [[#key-bindings][Key bindings]]
 
-* TODOs
-
-** TODO Keybindings to send code to repl for compatible modes
-** TODO more keybindings for repl
-** TODO Change spacemacs load babel languages function such that it first changes the order to make sure jupyter is the last element
-** TODO Add this at a fitting position
-#+BEGIN_SRC emacs-lisp
-(spacemacs|use-package-add-hook org
-  :post-config (add-to-list 'org-babel-load-languages ((jupyter . t))))
-#+END_SRC
-
 * Description
-Spacemacs layer for https://github.com/dzop/emacs-jupyter
+  A spacemacs layer for Jupyter REPLs and their integration with =org-mode=,
+  including integration with =org-babel= and exporting of =org= files to
+  =.ipynb=. Currently a fork of [[https://github.com/benneti/spacemacs-jupyter][benneti's jupyter layer]], though I have not
+  decided if I wish to keep this as a personal private layer.
 
-** Features:
-  - Interactive REPL
-  - Jupyter kernels support for =org-babel=
-  - auto-completion using =Company= in REPL and =org-src-blocks=
+** Features
+   Includes the following packages:
+   - [[https://github.com/dzop/emacs-jupyter][dzop's =emacs-jupyter=]]
+   - [[https://github.com/jkitchin/ox-ipynb][jkitchin's =ox-ipynb=]]
+   - =company= via the =company-capf= backend
 
 * Install
-To use this configuration layer, add it to your =~/.spacemacs=. You will need to
-add =jupyter= to the existing =dotspacemacs-configuration-layers= list in this
-file.
+  To use this configuration layer, add it to your =~/.spacemacs=. You will need to
+  add =jupyter= to the existing =dotspacemacs-configuration-layers= list in this
+  file.
 
-Additionally you need to have =jupyter= available in your =PATH=.
+  Additionally you need to have =jupyter= available in your =PATH=.
 
-The jupyter package also provides integration with =org-babel= via =ob-jupyter=.
-To use the kernels in jupyter just add =(jupyter . t)= to your
-=org-babel-load-languages= list as the last element.
-If no auto-completion is used adding to the variable is sufficient as spacemacs
-provides a hook that loads it the first time =org-mode= is started.
+  The jupyter package also provides integration with =org-babel= via =ob-jupyter=.
+  To use the kernels in jupyter just add =(jupyter . t)= to your
+  =org-babel-load-languages= list as the last element.
+  If no auto-completion is used adding to the variable is sufficient as spacemacs
+  provides a hook that loads it the first time =org-mode= is started.
 
-An example would be adding
-#+BEGIN_SRC emacs-lisp
-(with-eval-after-load 'org
-  (setq org-babel-load-languages
-        (append org-babel-load-languages
-                '((latex . t)
-                  ;; jupyter has to be the last element
-                  (jupyter . t))))
-  ;; Execute load languages once, else autocompletion will only work in the
-  ;; second org file one opens
-  (spacemacs//org-babel-do-load-languages))
-#+END_SRC
-to your =dotspacemacs/user-config=.
+  An example would be adding
+
+  #+BEGIN_SRC emacs-lisp
+  (with-eval-after-load 'org
+    (setq org-babel-load-languages
+          (append org-babel-load-languages
+                  '((latex . t)
+                    ;; jupyter has to be the last element
+                    (jupyter . t))))
+    ;; Execute load languages once, else autocompletion will only work in the
+    ;; second org file one opens
+    (spacemacs//org-babel-do-load-languages))
+  #+END_SRC
+
+  to your =dotspacemacs/user-config=.
 
 * Key bindings
-To start a REPL use ~SPC a j j~ or ~SPC a j r~ and to connect to one ~SPC a j c~.
+  As of this upload, I have removed all key bindings except for the following.
 
-| Key Binding | Description    |
-|-------------+----------------|
-| ~SPC x x x~ | Does thing01   |
+  | Key Binding | Description     |
+  |-------------+-----------------|
+  | ~SPC a j j~ | Start new REPL  |
+  | ~SPC a j r~ | Start new REPL  |
+  | ~SPC a j c~ | Connect to REPL |
 
 # Use GitHub URLs if you wish to link a Spacemacs documentation file or its heading.
 # Examples:
