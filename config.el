@@ -1,1 +1,2 @@
-(spacemacs|defvar-company-backends jupyter-repl-mode)
+;; add- or defvar- dependind on spacemacs branch
+(spacemacs|add-company-backends jupyter-repl-mode)

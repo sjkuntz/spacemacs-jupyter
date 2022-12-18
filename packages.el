@@ -43,8 +43,9 @@
 
 (defun jupyter/post-init-company ()
   ;; Enable company-capf backend in the REPL.
-  (spacemacs|add-company-hook jupyter-repl-mode)
-  (push 'company-capf company-backends-jupyter-repl-mode)
+    (spacemacs|add-company-backends :backends company-capf :modes jupyter-repl-mode)
+;;  (spacemacs|add-company-hook jupyter-repl-mode)
+;;  (push 'company-capf company-backends-jupyter-repl-mode)
   )
 
 (defun jupyter/init-jupyter ()
